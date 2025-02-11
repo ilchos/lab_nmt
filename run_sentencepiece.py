@@ -1,4 +1,5 @@
 import pandas as pd
+from pathlib import Path
 
 # poor man's data split
 df = pd.read_csv("./data/data.txt", sep="\t",
@@ -65,8 +66,9 @@ def get_options(input_path, output_path):
 
 # %%
 # train sp models
-sp.SentencePieceTrainer.train(**get_options("./data/train.en", "../.stor/sp_en"))
-sp.SentencePieceTrainer.train(**get_options("./data/train.ru", "../.stor/sp_ru"))
+Path(".stor").mkdir(exist_ok=True)
+sp.SentencePieceTrainer.train(**get_options("./data/train.en", "./.stor/sp_en"))
+sp.SentencePieceTrainer.train(**get_options("./data/train.ru", "./.stor/sp_ru"))
 
 # %%
 # load model
